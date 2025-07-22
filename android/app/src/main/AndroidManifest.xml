@@ -1,8 +1,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Android TV için gerekli izinler ve özellikler -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
+    <!-- Touchscreen zorunlu olmadığını belirt -->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    
+    <!-- Android TV için leanback özelliği -->
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true" />
+    
+    <!-- TV cihazları için -->
+    <uses-feature
+        android:name="android.hardware.type.television"
+        android:required="false" />
+
     <application
-        android:label="tv"
+        android:label="Restaurant TV"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:banner="@mipmap/ic_launcher"
+        android:theme="@style/Theme.Leanback">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -11,7 +32,8 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="landscape">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -20,9 +42,15 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+            <!-- Ana launcher intent (normal Android cihazları için) -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <!-- TV launcher intent (Android TV için) -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
